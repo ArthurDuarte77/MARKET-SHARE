@@ -29,12 +29,11 @@ def chamar_script(dia_inicial, dia_final, cookie):
         if os.path.exists(arquivo):
             os.remove(arquivo)
     
-    janela.destroy()
-    
     scripts = ['jfa.py', 'stetson.py', 'taramps.py', 'usina.py']
     
     dia_inicial = cal_inicial.get_date().strftime('%Y-%m-%d')
     dia_final = cal_final.get_date().strftime('%Y-%m-%d')
+    janela.destroy()
     
     for script in scripts:
         comando = [
@@ -45,7 +44,6 @@ def chamar_script(dia_inicial, dia_final, cookie):
             '--cookie', cookie
         ]
         subprocess.run(comando)
-    
     messagebox.showinfo("Conclusão", "Todos os scripts foram executados com sucesso!")
 
 parser = argparse.ArgumentParser(description='Executar scripts com datas específicas.')
@@ -120,4 +118,5 @@ cal_final.grid(column=1, row=1, padx=10, pady=10)
 
 ttk.Button(janela, text='Executar', command=lambda: chamar_script("", "", cookie)).grid(column=0, row=2, columnspan=2, pady=10)
 
+janela.protocol("WM_DELETE_WINDOW", lambda: janela.quit())
 janela.mainloop()
