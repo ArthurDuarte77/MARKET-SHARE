@@ -62,9 +62,7 @@ def identificar_produto(tipo, preco):
         
         if preco_base * (1 - tolerancia) <= preco <= preco_base * (1 + tolerancia):
             return produto
-    
-    return "Not Found"
-
+    return "OUTROS"
 
 if os.path.exists(r"produtos.xlsx"):
     os.remove(r"produtos.xlsx")
