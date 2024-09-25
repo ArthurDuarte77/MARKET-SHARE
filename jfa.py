@@ -33,21 +33,21 @@ titulo_arquivo = ""
 produtos = {
     "FONTE 40A": {"classico": 414.87, "premium": 445.99},
     "FONTE 60A": {"classico": 456.36, "premium": 487.48},
-    "FONTE 60A LITE": {"classico": 375.9, "premium": 402.14},
+    "FONTE LITE 60A": {"classico": 375.9, "premium": 402.14},
     "FONTE 70A": {"classico": 508.22, "premium": 539.34},
-    "FONTE 70A LITE": {"classico": 420.99, "premium": 447.46},
+    "FONTE LITE 70A": {"classico": 420.99, "premium": 447.46},
     "FONTE 120A": {"classico": 653.43, "premium": 694.92},
-    "FONTE 120A LITE": {"classico": 552.93, "premium": 590.56},
+    "FONTE LITE 120A": {"classico": 552.93, "premium": 590.56},
     "FONTE 200A": {"classico": 829.76, "premium": 871.25},
-    "FONTE 200A LITE": {"classico": 702.29, "premium": 738.22},
-    "FONTE 90 BOB": {"classico": 435.62, "premium": 456.36},
-    "FONTE 120 BOB": {"classico": 514.45, "premium": 555.93},
-    "FONTE 200 BOB": {"classico": 643.06, "premium": 715.66},
-    "FONTE 200 MONO": {"classico": 758.71, "premium": 798.64},
-    "K1200": {"classico": 63.47, "premium": 68.66},
-    "K600": {"classico": 60.29, "premium": 65.29},
-    "CONTROLE WR": {"classico": 94.16, "premium": 104.25},
-    "ACQUA": {"classico": 81.84, "premium": 91.17}
+    "FONTE LITE 200A": {"classico": 702.29, "premium": 738.22},
+    "FONTE BOB 90A": {"classico": 435.62, "premium": 456.36},
+    "FONTE BOB 120A": {"classico": 514.45, "premium": 555.93},
+    "FONTE BOB 200A": {"classico": 643.06, "premium": 715.66},
+    "FONTE 200A MONO": {"classico": 758.71, "premium": 798.64},
+    "CONTROLE K1200": {"classico": 63.47, "premium": 68.66},
+    "CONTROLE K600": {"classico": 60.29, "premium": 65.29},
+    "CONTROLE REDLINE": {"classico": 94.16, "premium": 104.25},
+    "CONTROLE ACQUA": {"classico": 81.84, "premium": 91.17}
 }
 
 def identificar_produto(tipo, preco):
