@@ -36,9 +36,9 @@ def processar_planilha(df, url, dia_inicial):
                 'unitPrice': dados.get('Preço Unitário'),
                 'total': dados.get('Total'),
                 'model': dados.get('Produto2'),
-                'date': dia_inicial.split('T')[0]
+                'date': dia_inicial
             })
-        
+
             try:
                 resposta = requests.post(url, data=payload, headers=headers)
                 print(f"Status code para linha {index + 1}: {resposta.status_code}")
@@ -106,44 +106,37 @@ def chamar_script(dia_inicial, dia_final, script_name):
     resultado = subprocess.run(comando, capture_output=True, text=True)
     return resultado
 
-# Definir as datas de início e fim
-data_inicial = datetime(2024, 9, 1)
-data_final = datetime(2024, 9, 22)
-
-
-# Iterar do dia inicial até o dia final
-data_atual = data_inicial
-while data_atual <= data_final:
-    dia_inicial = data_atual.strftime('%Y-%m-%d')
-    dia_final = dia_inicial  # Cada iteração processa um único dia
-
-    # Chamar o primeiro script (Taramps)
-    chamar_script(dia_inicial, dia_final, 'taramps.py')
     
+for i in range(1,3):
+    
+    dia_inicial = f"2024-10-{str(i).zfill(2)}"
+    dia_final = f"2024-10-{str(i).zfill(2)}"
+
+    chamar_script(dia_inicial, dia_final, 'taramps.py')
+
     # Chamar o segundo script (Usina)
     chamar_script(dia_inicial, dia_final, 'usina.py')
-    
+
     # Chamar o terceiro script (Stetsom)
     chamar_script(dia_inicial, dia_final, 'stetson.py')
-    
+
     # Chamar o quarto script (JFA)
     chamar_script(dia_inicial, dia_final, 'jfa.py')
-    
+
     # Processar a planilha gerada pelo script Taramps
     df_taramps = pd.read_excel('modelos_taramps.xlsx')
-    processar_planilha(df_taramps, 'http://localhost:8090/api/v1/taramps', dia_inicial)
-    
+    processar_planilha(df_taramps, 'http://localhost:8090/api/v1/taramps', str(int(dia_inicial[-2:]) + 1).zfill(2))
+
     # Processar a planilha gerada pelo script Usina
     df_usina = pd.read_excel('modelos_usina.xlsx')
-    processar_planilha(df_usina, 'http://localhost:8090/api/v1/usina', dia_inicial)
-    
+    processar_planilha(df_usina, 'http://localhost:8090/api/v1/usina', str(int(dia_inicial[-2:]) + 1).zfill(2))
+
     # Processar a planilha gerada pelo script Stetsom
     df_stetsom = pd.read_excel('modelos_stetson.xlsx')
-    processar_planilha(df_stetsom, 'http://localhost:8090/api/v1/stetsom', dia_inicial)
-    
+    processar_planilha(df_stetsom, 'http://localhost:8090/api/v1/stetsom', str(int(dia_inicial[-2:]) + 1).zfill(2))
+
     # Processar a planilha gerada pelo script JFA
     df_jfa = pd.read_excel('modelos_jfa.xlsx')
-    processar_planilha(df_jfa, 'http://localhost:8090/api/v1/jfa', dia_inicial)
+    processar_planilha(df_jfa, 'http://localhost:8090/api/v1/jfa', str(int(dia_inicial[-2:]) + 1).zfill(2))
     
-    # print("Processo concluído para todos os scripts.")
-    data_atual += timedelta(days=1)
+print("Processo concluído para todos os scripts.")
