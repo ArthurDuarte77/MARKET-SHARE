@@ -42,6 +42,13 @@ def SelecionarFonte(item):
     if "chaveada" in nome or "colmeia" in nome:
         items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "OUTROS"})
         return
+    
+    if isinstance(item["Vendedor"], int):
+        response = requests.get(f"https://api.mercadolibre.com/users/{item['Vendedor']}")
+        if response.status_code == 200:
+            data = response.json()
+            item['Vendedor'] = data.get("nickname", item['Vendedor'])
+            
     if "fonte" in nome or "carregador" in nome:
         if " 40a" in nome or " 40 amperes" in nome or " 40amperes" in nome or "40" in nome:
         

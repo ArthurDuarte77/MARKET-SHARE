@@ -41,10 +41,51 @@ def SelecionarFonte(item):
     price = float(item["Preço Unitário"].replace(".", "").replace(",", "."))
     tipo = unidecode(item["Tipo de Anúncio"].strip().lower())
     total = float(item["Total"].replace(".", "").replace(",", "."))
-    if "inversor" in nome or "kit" in nome or "controle" in nome or "conversor" in nome or "24v"  in nome or "truck"  in nome or "48v" in nome or "48 v" in nome or "fita led" in nome or "máquina" in nome or "fumaça" in nome or "vela" in nome or "refletor" in nome or "moving" in nome or "nauticlin" in nome or "nauticline" in nome or "nautic" in nome or "truck lin" in nome or "tru" in nome or "48v" in nome or "truck line" in nome or "truck" in nome or "fontes 48v" in nome or "fontes 24v" in nome or "32bv" in nome or "32a" in nome or "5v" in nome or "2a" in nome:
+    if "kit" in nome or "controle" in nome or "truck"  in nome or "48v" in nome or "48 v" in nome or "fita led" in nome or "máquina" in nome or "fumaça" in nome or "vela" in nome or "refletor" in nome or "moving" in nome or "nauticlin" in nome or "nauticline" in nome or "nautic" in nome or "truck lin" in nome or "tru" in nome or "48v" in nome or "truck line" in nome or "truck" in nome or "fontes 48v" in nome or "fontes 24v" in nome or "32bv" in nome or "32a" in nome or "5v" in nome or "2a" in nome or "máquina" in nome:
         items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "OUTROS"})
         return
+    
+    if isinstance(item["Vendedor"], int):
+        response = requests.get(f"https://api.mercadolibre.com/users/{item['Vendedor']}")
+        if response.status_code == 200:
+            data = response.json()
+            item['Vendedor'] = data.get("nickname", item['Vendedor'])
         
+    if "inversor":
+        if "1500w" in nome or "1500" in nome or "1.500" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 1500W"})
+            return
+        elif "800w" in nome or "800" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 800W"})
+            return
+        elif "600w" in nome or "600" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 600W"})
+            return    
+        elif "1000w" in nome or "1000" in nome or "1.000" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 1000W"})
+            return
+        elif "1200w" in nome or "1200" in nome or "1.200" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 1200W"})
+            return
+        elif "1800w" in nome or "1800" in nome or "1.800" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 1800W"})
+            return
+        elif "2000w" in nome or "2000" in nome or "2.000" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 2000W"})
+            return
+        elif "2500w" in nome or "2500" in nome or "2.500" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 2500W"})
+            return
+        elif "3000w" in nome or "3000" in nome or "3.000" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3000W"})
+            return
+        elif "5000w" in nome or "5000" in nome or "5.000" in nome:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 5000W"})
+            return
+        else:
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR"})
+            return
+    
     if "bob" not in nome:          
         if "30" in nome or " 30a" in nome or " 30 a" in nome or " 30 amperes" in nome or " 30amperes" in nome or "30 amp" in nome or "30amp" in nome:
             

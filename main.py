@@ -16,11 +16,41 @@ from selenium.common.exceptions import *
 import time
 import json
 
+
+def juntar_planilhas():
+    # Lista de arquivos a serem juntados
+    arquivos = [
+        "modelos_jfa.xlsx",
+        "modelos_stetson.xlsx",
+        "modelos_taramps.xlsx",
+        "modelos_epever.xlsx",
+        "modelos_hayonik.xlsx",
+        "modelos_usina.xlsx",
+    ]
+    
+    # Data de hoje
+    data_hoje = datetime.now().strftime('%Y-%m-%d')
+    
+    # Inicializar dataframe vazio
+    df_juntado = pd.DataFrame()
+    
+    # Juntar planilhas
+    for arquivo in arquivos:
+        if os.path.exists(arquivo):
+            df = pd.read_excel(arquivo)
+            df['Data'] = data_hoje
+            df_juntado = pd.concat([df_juntado, df])
+    
+    # Salvar planilha juntada
+    df_juntado.to_excel('resultado_final.xlsx', index=False)
+
 def chamar_script(dia_inicial, dia_final, cookie):
     arquivos = [
         "modelos_jfa.xlsx",
         "modelos_stetson.xlsx",
         "modelos_taramps.xlsx",
+        "modelos_epever.xlsx",
+        "modelos_hayonik.xlsx",
         "modelos_usina.xlsx",
         "produtos.xlsx"
     ]
@@ -29,7 +59,7 @@ def chamar_script(dia_inicial, dia_final, cookie):
         if os.path.exists(arquivo):
             os.remove(arquivo)
     
-    scripts = ['jfa.py', 'stetson.py', 'taramps.py', 'usina.py']
+    scripts = ['jfa.py', 'usina.py', 'hayonik.py', 'epever.py', 'stetson.py', 'taramps.py',]
     
     dia_inicial = cal_inicial.get_date().strftime('%Y-%m-%d')
     dia_final = cal_final.get_date().strftime('%Y-%m-%d')
@@ -45,6 +75,7 @@ def chamar_script(dia_inicial, dia_final, cookie):
         ]
         subprocess.run(comando)
     messagebox.showinfo("Conclusão", "Todos os scripts foram executados com sucesso!")
+    juntar_planilhas()
 
 parser = argparse.ArgumentParser(description='Executar scripts com datas específicas.')
 parser.add_argument('--dia_inicial', type=str, help='Data inicial no formato YYYY-MM-DD')

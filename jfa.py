@@ -1,4 +1,3 @@
-from fuzzywuzzy import fuzz
 import argparse
 from unidecode import unidecode
 from selenium.webdriver.support.ui import Select
@@ -69,140 +68,6 @@ if os.path.exists(r"produtos.xlsx"):
 if os.path.exists(r"modelos_jfa.xlsx"):
     os.remove(r"modelos_jfa.xlsx")
 
-
-def SelecionarModelo(nome):
-    nome = unidecode(nome.strip().lower())
-    
-    if "inversor" in nome or "amplificador" in nome or "processador" in nome or "capa" in nome or "nobreak" in nome or "retificadora" in nome or "multimidia" in nome or "gerenciador" in nome or "suspensao" in nome or "stetsom" in nome or "central" in nome or " 50a" in nome:
-        return "OUTROS"
-    
-    if ("k600" in nome or "k6" in nome) and "fonte" not in nome and "k1200" not in nome:
-    
-        return "CONTROLE K600"
-        
-    if ("k1200" in nome or "k12" in nome) and "fonte" not in nome and "k600" not in nome:
-    
-        return "CONTROLE K1200"
-        
-    if ("controle wr" in nome or "wr" in nome or "redline" in nome or "red line" in nome) and "fonte" not in nome:
-    
-        return "CONTROLE REDLINE"
-        
-    if ("acqua" in nome or "aqua" in nome or "agua" in nome) and "fonte" not in nome:
-    
-        return "CONTROLE ACQUA"
-    
-    
-    if "controle" not in nome and "lite" not in nome and "light" not in nome:
-        if "40" in nome or "40a" in nome or "40 amperes" in nome or "40amperes" in nome or "36a" in nome or "36" in nome or "36 amperes" in nome or "36amperes" in nome:
-        
-            return "FONTE 40A"
-            
-    if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome:
-        if "60" in nome or "60a" in nome or "60 amperes" in nome or "60amperes" in nome or "60 a" in nome or "-60" in nome:
-        
-            return "FONTE 60A"
-            
-    if "bob" not in nome and ("lite" in nome or "light" in nome or "lit" in nome) and "controle" not in nome:
-        if "60" in nome or "60a" in nome or "60 amperes" in nome or "60amperes" in nome or "60 a" in nome:
-        
-            return "FONTE LITE 60A"
-            
-    if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome:
-        if "70" in nome or "70a" in nome or "70 amperes" in nome or "70amperes" in nome or "70 a" in nome:
-        
-            return "FONTE 70A"
-
-    if "bob" not in nome and  ("lite" in nome or "light" in nome or "lit" in nome) and "controle" not in nome:
-        if "70" in nome or "70a" in nome or "70 amperes" in nome or "70amperes" in nome or "70 a" in nome:
-        
-            return "FONTE LITE 70A"
-            
-    if "bob" not in nome and  ("lite" in nome or "light" in nome) and "controle" not in nome:
-        if "40" in nome or "40a" in nome or "40 amperes" in nome or "40amperes" in nome or "40 a" in nome:
-        
-            return "FONTE LITE 40A"
-            
-    if "lite" not in nome and "light" not in nome  and "controle" not in nome:
-        if "90" in nome or "90a" in nome or "90 amperes" in nome or "90amperes" in nome or "90 a" in nome:
-        
-            return "FONTE BOB 90A"
-            
-    if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and "lit" not in nome:
-        if "120" in nome or "120a" in nome or "120 amperes" in nome or "120amperes" in nome or "120 a" in nome:
-        
-            return "FONTE 120A"
-
-    if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and "lit" not in nome:
-        if "150" in nome or "150a" in nome or "150 amperes" in nome or "150amperes" in nome or "150 a" in nome:
-        
-            return "FONTE 150A"
-             
-    if "bob" not in nome and  ("lite" in nome or "light" in nome or "lit" in nome) and "controle" not in nome:
-        if "120" in nome or "120a" in nome or "120 amperes" in nome or "120amperes" in nome or "120 a" in nome:
-        
-            return "FONTE LITE 120A"
-                
-    if "bob" in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and "lit" not in nome:
-        if "120" in nome or "120a" in nome or "120 amperes" in nome or "120amperes" in nome or "120 a" in nome:
-        
-            return "FONTE BOB 120A"
-                
-    if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and 'mono' not in nome and 'mono' not in nome and 'monovolt' not in nome and '220v' not in nome and "lit" not in nome:
-        if "200" in nome or "200a" in nome or "200 amperes" in nome or "200amperes" in nome or "200 a" in nome:
-        
-            return "FONTE 200A"
-                
-    if "bob" not in nome and  ("lite" in nome or "light" in nome or "lit" in nome) and "controle" not in nome and ("mono" in nome or "220v" in nome or "monovolt" in nome):
-        if "200" in nome or "200a" in nome or "200 amperes" in nome or "200amperes" in nome or "200 a" in nome:
-        
-            return "FONTE LITE 200A MONO"
-        
-    if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and ("mono" in nome or "220v" in nome or "monovolt" in nome):
-        if "200" in nome or "200a" in nome or "200 amperes" in nome or "200amperes" in nome or "200 a" in nome:
-        
-            return "FONTE 200A MONO"
-                
-    if "bob" not in nome and  ("lite" in nome or "light" in nome or "lit" in nome) and "controle" not in nome:
-        if "200" in nome or "200a" in nome or "200 amperes" in nome or "200amperes" in nome or "200 a" in nome:
-        
-            return "FONTE LITE 200A"
-                
-    if "bob" in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and 'mono' not in nome and 'mono' not in nome and 'monovolt' not in nome and '220v' not in nome:
-        if "200" in nome or "200a" in nome or "200 amperes" in nome or "200amperes" in nome or "200 a" in nome:
-        
-            return "FONTE BOB 200A"
-        
-        
-    if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and 'mono' not in nome and 'mono' not in nome and 'monovolt' not in nome and '220v' not in nome and "lit" not in nome:
-        if "20" in nome or "20a" in nome or "20 amperes" in nome or "20amperes" in nome or "20 a" in nome:
-        
-            return "FONTE 200A"
-
-                
-    if "bob" not in nome and  ("lite" in nome or "light" in nome or "lit" in nome) and "controle" not in nome and ("mono" in nome or "220v" in nome or "monovolt" in nome):
-        if "20" in nome or "20a" in nome or "20 amperes" in nome or "20amperes" in nome or "20 a" in nome:
-        
-            return "FONTE LITE 200A MONO"
-
-        
-    if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and ("mono" in nome or "220v" in nome or "monovolt" in nome):
-        if "20" in nome or "20a" in nome or "20 amperes" in nome or "20amperes" in nome or "20 a" in nome:
-        
-            return "FONTE 200A MONO"
-
-                
-    if "bob" not in nome and  ("lite" in nome or "light" in nome or "lit" in nome) and "controle" not in nome:
-        if "20" in nome or "20a" in nome or "20 amperes" in nome or "20amperes" in nome or "20 a" in nome:
-        
-            return "FONTE LITE 200A"
-
-                
-    if "bob" in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome and 'mono' not in nome and 'mono' not in nome and 'monovolt' not in nome and '220v' not in nome:
-        if "20" in nome or "20a" in nome or "20 amperes" in nome or "20amperes" in nome or "20 a" in nome:
-        
-            return "FONTE BOB 200A"
-
     
 
 
@@ -211,8 +76,24 @@ def SelecionarFonte(item):
     price = float(item["Preço Unitário"].replace(".", "").replace(",", "."))
     tipo = unidecode(item["Tipo de Anúncio"].strip().lower())
     total = float(item["Total"].replace(".", "").replace(",", "."))
-    if "inversor" in nome or "amplificador" in nome or "processador" in nome or "capa" in nome or "nobreak" in nome or "retificadora" in nome or "multimidia" in nome or "gerenciador" in nome or "suspensao" in nome or "stetsom" in nome or "central" in nome or " 50a" in nome:
+    if "amplificador" in nome or "processador" in nome or "capa" in nome or "nobreak" in nome or "retificadora" in nome or "multimidia" in nome or "gerenciador" in nome or "suspensao" in nome or "stetsom" in nome or "central" in nome:
         items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "OUTROS"})
+        return
+
+    if isinstance(item["Vendedor"], int):
+        response = requests.get(f"https://api.mercadolibre.com/users/{item['Vendedor']}")
+        if response.status_code == 200:
+            data = response.json()
+            item['Vendedor'] = data.get("nickname", item['Vendedor'])
+    
+    if "inversor" in nome and ("3000w" in nome or "30" in nome):
+        items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3000W"})
+        return
+    if "inversor" in nome and ("1000w" in nome or "10" in nome):
+        items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 1000W"})
+        return
+    if "inversor" in nome and ("2000w" in nome or "20" in nome):
+        items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 2000W"})
         return
     
     if ("k600" in nome or "k6" in nome) and "fonte" not in nome and "k1200" not in nome:
@@ -240,6 +121,12 @@ def SelecionarFonte(item):
         if "40" in nome or "40a" in nome or "40 amperes" in nome or "40amperes" in nome or "36a" in nome or "36" in nome or "36 amperes" in nome or "36amperes" in nome:
         
             items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE 40A"})
+            return
+        
+    if "bob" not in nome and ("lite" in nome or "light" in nome or "lit" in nome) and "controle" not in nome:
+        if "50" in nome or "50a" in nome or "50 amperes" in nome or "50amperes" in nome or "50 a" in nome:
+        
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE LITE 50A"})
             return
             
     if "bob" not in nome and "lite" not in nome and "light" not in nome  and "controle" not in nome:
@@ -362,7 +249,12 @@ def SelecionarFonte(item):
         
             items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE BOB 200A"})
             return
+        
     
+    
+    if "inversor" in nome:
+        items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "OUTROS INVERSORES"})
+        return
     
     if "fonte" in nome:
         items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": identificar_produto(unidecode(item["Tipo de Anúncio"]).lower(), price)})
