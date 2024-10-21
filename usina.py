@@ -51,7 +51,7 @@ def SelecionarFonte(item):
             data = response.json()
             item['Vendedor'] = data.get("nickname", item['Vendedor'])
         
-    if "inversor":
+    if "inversor" in nome:
         if "1500w" in nome or "1500" in nome or "1.500" in nome:
             items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 1500W"})
             return
