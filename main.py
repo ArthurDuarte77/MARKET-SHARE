@@ -20,12 +20,13 @@ import json
 def juntar_planilhas():
     # Lista de arquivos a serem juntados
     arquivos = [
-        "modelos_jfa.xlsx",
-        "modelos_stetson.xlsx",
-        "modelos_taramps.xlsx",
-        "modelos_epever.xlsx",
-        "modelos_hayonik.xlsx",
+        # "modelos_jfa.xlsx",
+        # "modelos_stetson.xlsx",
+        # "modelos_taramps.xlsx",
+        # "modelos_epever.xlsx",
+        # "modelos_hayonik.xlsx",
         "modelos_usina.xlsx",
+        # "modelos_volt.xlsx",
     ]
     
     # Data de hoje
@@ -52,6 +53,7 @@ def chamar_script(dia_inicial, dia_final, cookie):
         "modelos_epever.xlsx",
         "modelos_hayonik.xlsx",
         "modelos_usina.xlsx",
+        "modelos_volt.xlsx",
         "produtos.xlsx"
     ]
     
@@ -59,7 +61,7 @@ def chamar_script(dia_inicial, dia_final, cookie):
         if os.path.exists(arquivo):
             os.remove(arquivo)
     
-    scripts = ['jfa.py', 'usina.py', 'hayonik.py', 'epever.py', 'stetson.py', 'taramps.py',]
+    scripts = ['usina.py']#'jfa.py', 'usina.py', 'hayonik.py', 'epever.py', 'stetson.py', 'taramps.py',
     
     dia_inicial = cal_inicial.get_date().strftime('%Y-%m-%d')
     dia_final = cal_final.get_date().strftime('%Y-%m-%d')
