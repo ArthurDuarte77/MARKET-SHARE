@@ -30,24 +30,25 @@ titulo_arquivo = ""
 
 # Dicionário com produtos e seus preços para cada categoria
 produtos = {
-    "FONTE 40A": {"classico": 414.87, "premium": 445.99},
-    "FONTE 60A": {"classico": 456.36, "premium": 487.48},
-    "FONTE LITE 60A": {"classico": 375.9, "premium": 402.14},
-    "FONTE 70A": {"classico": 508.22, "premium": 539.34},
-    "FONTE LITE 70A": {"classico": 420.99, "premium": 447.46},
-    "FONTE 120A": {"classico": 653.43, "premium": 694.92},
-    "FONTE LITE 120A": {"classico": 552.93, "premium": 590.56},
-    "FONTE 200A": {"classico": 829.76, "premium": 871.25},
-    "FONTE LITE 200A": {"classico": 702.29, "premium": 738.22},
-    "FONTE BOB 90A": {"classico": 435.62, "premium": 456.36},
-    "FONTE BOB 120A": {"classico": 514.45, "premium": 555.93},
-    "FONTE BOB 200A": {"classico": 643.06, "premium": 715.66},
-    "FONTE 200A MONO": {"classico": 758.71, "premium": 798.64},
-    "CONTROLE K1200": {"classico": 63.47, "premium": 68.66},
-    "CONTROLE K600": {"classico": 60.29, "premium": 65.29},
-    "CONTROLE REDLINE": {"classico": 94.16, "premium": 104.25},
-    "CONTROLE ACQUA": {"classico": 81.84, "premium": 91.17}
+    "FONTE 40A": {"classico": 371.20, "premium": 399.04},
+    "FONTE 60A": {"classico": 408.32, "premium": 436.16},
+    "FONTE LITE 60A": {"classico": 336.33, "premium": 359.81},
+    "FONTE 70A": {"classico": 454.73, "premium": 482.57},
+    "FONTE LITE 70A": {"classico": 376.68, "premium": 400.36},
+    "FONTE 120A": {"classico": 584.65, "premium": 621.77},
+    "FONTE LITE 120A": {"classico": 494.21, "premium": 528.39},
+    "FONTE 200A": {"classico": 742.41, "premium": 779.54},
+    "FONTE LITE 200A": {"classico": 628.36, "premium": 660.51},
+    "FONTE BOB 90A": {"classico": 389.76, "premium": 408.32},
+    "FONTE BOB 120A": {"classico": 460.29, "premium": 497.41},
+    "FONTE BOB 200A": {"classico": 575.37, "premium": 640.33},
+    "FONTE 200A MONO": {"classico": 678.85, "premium": 714.11},
+    "CONTROLE K1200": {"classico": 56.79, "premium": 61.43},
+    "CONTROLE K600": {"classico": 53.95, "premium": 58.36},
+    "CONTROLE REDLINE": {"classico": 84.25, "premium": 93.71},
+    "CONTROLE ACQUA": {"classico": 73.22, "premium": 81.57}
 }
+
 
 def identificar_produto(tipo, preco):
     tolerancia = 0.05  # Tolerância de 1%
@@ -79,12 +80,6 @@ def SelecionarFonte(item):
     if "amplificador" in nome or "processador" in nome or "capa" in nome or "nobreak" in nome or "retificadora" in nome or "multimidia" in nome or "gerenciador" in nome or "suspensao" in nome or "stetsom" in nome or "central" in nome:
         items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "OUTROS"})
         return
-
-    if isinstance(item["Vendedor"], int):
-        response = requests.get(f"https://api.mercadolibre.com/users/{item['Vendedor']}")
-        if response.status_code == 200:
-            data = response.json()
-            item['Vendedor'] = data.get("nickname", item['Vendedor'])
     
     if "inversor" in nome and ("3000w" in nome or "30" in nome):
         items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3000W"})
@@ -287,7 +282,7 @@ for i in urls:
     response = requests.get(f"https://corp.shoppingdeprecos.com.br/vendedores/exportar_vendas_marca?id={i}&ini={dia_inicial}&fim={dia_final}", headers=headers)
 
     if response.status_code == 200:  
-        print("resposta ok")
+        #print("resposta ok")
         time.sleep(20)
         with open("produtos.xlsx", 'wb') as file:
 

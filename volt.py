@@ -26,47 +26,11 @@ from typing import Dict, List
 items = []
 
 titulo_arquivo = ""
-# options.add_argument("--headless=new")
-
-# Dicionário com produtos e seus preços para cada categoria
-produtos = {
-    "FONTE 40A": {"classico": 414.87, "premium": 445.99},
-    "FONTE 60A": {"classico": 456.36, "premium": 487.48},
-    "FONTE LITE 60A": {"classico": 375.9, "premium": 402.14},
-    "FONTE 70A": {"classico": 508.22, "premium": 539.34},
-    "FONTE LITE 70A": {"classico": 420.99, "premium": 447.46},
-    "FONTE 120A": {"classico": 653.43, "premium": 694.92},
-    "FONTE LITE 120A": {"classico": 552.93, "premium": 590.56},
-    "FONTE 200A": {"classico": 829.76, "premium": 871.25},
-    "FONTE LITE 200A": {"classico": 702.29, "premium": 738.22},
-    "FONTE BOB 90A": {"classico": 435.62, "premium": 456.36},
-    "FONTE BOB 120A": {"classico": 514.45, "premium": 555.93},
-    "FONTE BOB 200A": {"classico": 643.06, "premium": 715.66},
-    "FONTE 200A MONO": {"classico": 758.71, "premium": 798.64},
-    "CONTROLE K1200": {"classico": 63.47, "premium": 68.66},
-    "CONTROLE K600": {"classico": 60.29, "premium": 65.29},
-    "CONTROLE REDLINE": {"classico": 94.16, "premium": 104.25},
-    "CONTROLE ACQUA": {"classico": 81.84, "premium": 91.17}
-}
-
-def identificar_produto(tipo, preco):
-    tolerancia = 0.05  # Tolerância de 1%
-    for produto, precos in produtos.items():
-        if tipo.lower() == "classico":
-            preco_base = precos["classico"]
-        elif tipo.lower() == "premium":
-            preco_base = precos["premium"]
-        else:
-            return "Tipo inválido. Use 'classico' ou 'premium'."
-        
-        if preco_base * (1 - tolerancia) <= preco <= preco_base * (1 + tolerancia):
-            return produto
-    return "OUTROS"
 
 if os.path.exists(r"produtos.xlsx"):
     os.remove(r"produtos.xlsx")
-if os.path.exists(r"modelos_jfa.xlsx"):
-    os.remove(r"modelos_jfa.xlsx")
+if os.path.exists(r"produtos2.xlsx"):
+    os.remove(r"produtos2.xlsx")
 
     
 
@@ -79,48 +43,235 @@ def SelecionarFonte(item):
     if "amplificador" in nome or "processador" in nome or "capa" in nome or "multimidia" in nome or "gerenciador" in nome or "suspensao" in nome or "stetsom" in nome or "central" in nome:
         items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "OUTROS"})
         return
-
-    if isinstance(item["Vendedor"], int):
-        response = requests.get(f"https://api.mercadolibre.com/users/{item['Vendedor']}")
-        if response.status_code == 200:
-            data = response.json()
-            item['Vendedor'] = data.get("nickname", item['Vendedor'])
     
-    if "nobreak" in nome or "fonte nobreak" in nome:
-        if "620w" in nome and ("48v" in nome or "48" in nome):
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W 48V 2U"})
-            return
-
-        if "250w" in nome and "24v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W 24V 10A"})
-            return
-
-        if "200w" in nome and "24v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 24V 7A"})
-            return
-
-        if "200w" in nome and "12v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 12V 8A"})
-            return
-
-        if "200w" in nome and "48v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 48V 4A"})
-            return
-
-        if ("mini max" in nome or "max" in nome or "mini" in nome) and "24v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX 24V"})
-            return
-
-        if "mini max" in nome and "13.8v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX 13.8V"})
-            return
-
-        if "mini max" in nome and "12v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX 12V"})
-            return
+    if "nobreak" in nome:
+        if "200w" in nome and "rack" not in nome:
+            if "12v" in nome and "8a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 12v/8a"})
+                return
+            elif "24v" in nome and "7a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 24v/7a"})
+                return
+            elif "48v" in nome and "4a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 48v/4a"})
+                return
+            elif "-48v" in nome and "4a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W -48v/4a"})
+                return
+        elif "200w" in nome and ("rack" in nome or "1u" in nome):
+            if "12v" in nome and "8a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 12v/8a 1U"})
+                return
+            elif "24v" in nome and "7a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 24v/7a 1U"})
+                return
+            elif "48v" in nome and "4a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W 48v/4a 1U"})
+                return
+            elif "-48v" in nome and "4a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 200W -48v/4a 1U"})
+                return
+        elif "250w" in nome:
+            if "12v" in nome and "9a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W 12v/9a"})
+                return
+            elif "24v" in nome and ("9a" in nome or "10a" in nome):
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W 24v/9a"})
+                return
+            elif "48v" in nome and "4a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W 48v/4a"})
+                return
+            elif "-48v" in nome and "4a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W -48v/4a"})
+                return
+        elif "250w" in nome and "plus" in nome:
+            if "12v" in nome and "9a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W 12v/9a PLUS"})
+                return
+            elif "24v" in nome and ("9a" in nome or "10a" in nome):
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W 24v/9a PLUS"})
+                return
+            elif "48v" in nome and "4a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W 48v/4a PLUS"})
+                return
+            elif "-48v" in nome and "4a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 250W -48v/4a PLUS"})
+                return
+        elif "380w" in nome:
+            if "12v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 380W 12v/10a"})
+                return
+            elif "24v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 380W 24v/10a"})
+                return
+            elif "48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 380W 48v/5a"})
+                return
+            elif "-48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 380W -48v/5a"})
+                return
+        elif "380w" in nome and "gerenciavel" in nome:
+            if "12v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 380W 12v/10a GERENCIAVEL"})
+                return
+            elif "24v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 380W 24v/10a GERENCIAVEL"})
+                return
+            elif "48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 380W 48v/5a GERENCIAVEL"})
+                return
+            elif "-48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 380W -48v/5a GERENCIAVEL"})
+                return
+        elif "520w" in nome and "gerenciavel" in nome:
+            if "12v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 520W 12v/10a GERENCIAVEL"})
+                return
+            elif "24v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 520W 24v/10a GERENCIAVEL"})
+                return
+            elif "48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 520W 48v/5a GERENCIAVEL"})
+                return
+            elif "-48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 520W -48v/5a GERENCIAVEL"})
+                return
+        elif "520w" in nome:
+            if "12v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 520W 12v/10a"})
+                return
+            elif "24v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 520W 24v/10a"})
+                return
+            elif "48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 520W 48v/5a"})
+                return
+            elif "-48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 520W -48v/5a"})
+                return
+        elif "620w" in nome:
+            if "12v" in nome and "20a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W 12v/20a"})
+                return
+            elif "24v" in nome and "20a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W 24v/20a"})
+                return
+            elif "48v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W 48v/10a"})
+                return
+            elif "-48v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W -48v/10a"})
+                return
+        elif "620w" in nome and "2u" in nome:
+            if "12v" in nome and "20a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W 12v/20a 2U"})
+                return
+            elif "24v" in nome and "20a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W 24v/20a 2U"})
+                return
+            elif "48v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W 48v/10a 2U"})
+                return
+            elif "-48v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 620W -48v/10a 2U"})
+                return
+        elif "1000w" in nome:
+            if "12v" in nome and "30a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 12v/30a"})
+                return
+            elif "12v" in nome and "15a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 12v/15a"})
+                return
+            elif "12v" in nome and "45a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 12v/45a"})
+                return
+            elif "24v" in nome and "40a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 24v/40a"})
+                return
+            elif "24v" in nome and "30a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 24v/30a"})
+                return
+            elif "24v" in nome and "20a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 24v/20a"})
+                return
+            elif "24v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 24v/10a"})
+                return
+            elif "48v" in nome and "20a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 48v/20a"})
+                return
+            elif "48v" in nome and "15a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 48v/15a"})
+                return
+            elif "48v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 48v/10a"})
+                return
+            elif "48v" in nome and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W 48v/5a"})
+                return
+            elif "-48v" in nome and "15a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 1000W -48v/15a"})
+                return
+        elif "2000w" in nome:
+            if "48v" in nome and "40a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 2000W 48v/40a"})
+                return
+            elif "48v" in nome and "30a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 2000W 48v/30a"})
+                return
+            elif "48v" in nome and "20a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 2000W 48v/20a"})
+                return
+            elif "48v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 2000W 48v/10a"})
+                return
+            elif "-48v" in nome and "30a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 2000W -48v/30a"})
+                return
+            elif "-48v" in nome and "20a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 2000W -48v/20a"})
+                return
+            elif "-48v" in nome and "10a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK 2000W -48v/10a"})
+                return
+        elif "mini max" in nome:
+            if ("13,8v" in nome or "13.8v" in nome) and "2a" in nome and "p4" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX P4 13,8v/2a"})
+                return
+            elif ("13,8v" in nome or "13.8v" in nome) and "2a" in nome and "poe" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX P4 13,8v/2a"})
+                return
+            elif ("13,8v" in nome or "13.8v" in nome) and "2a" in nome and "p4" in nome and ("2 saidas" in nome or "2 cabos" in nome):
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX 2 SAIDAS P4 13,8v/2a"})
+                return
+            elif ("13,8v" in nome or "13.8v" in nome) and "5a" in nome and "p4" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX P4 13,8v/5a"})
+                return
+            elif ("13,8v" in nome or "13.8v" in nome) and "5a" in nome and "p4" in nome and ("3 saidas" in nome or "3 cabos" in nome):
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX 3 SAIDAS P4 13,8v/5a"})
+                return
+            elif "27,5v" in nome and "3a" in nome and "p4" in nome and ("3 saidas" in nome or "3 cabos" in nome):
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX 3 SAIDAS P4 27,5v/3a"})
+                return
+        elif "max energy" in nome:
+            if "12v" in nome and "2a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MAX ENERGY 12v/2a"})
+                return
+            elif "24v" in nome and "1a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MAX ENERGY 24v/1a"})
+                return
+        elif "mini max duo" in nome and "gerenciavel" in nome:
+            if ("13,8v" in nome or "13.8v" in nome) and "5a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX DUO GERENCIAVEL 13,8v/5a"})
+                return
+            if "27,5v" in nome and "3a" in nome:
+                items.append({"Vendedor": item["Vendedor"], "Produto": nome, "Marca": item["Marca"], "Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "FONTE NOBREAK MINI MAX DUO GERENCIAVEL 27,5v/3a"})
+                return
         
+            
+
     items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "OUTROS"})
-                
+    
 
 parser = argparse.ArgumentParser(description='Processar datas de início e fim.')
 parser.add_argument('--dia_inicial', type=str, required=True, help='Data inicial no formato AAAA-MM-DD')
@@ -142,7 +293,7 @@ for i in urls:
     response = requests.get(f"https://corp.shoppingdeprecos.com.br/vendedores/exportar_vendas_marca?id={i}&ini={dia_inicial}&fim={dia_final}", headers=headers)
 
     if response.status_code == 200:  
-        print("resposta ok")
+        # print("resposta ok")
         time.sleep(20)
         with open("produtos.xlsx", 'wb') as file:
 
