@@ -41,29 +41,17 @@ def SelecionarFonte(item):
     total = float(item["Total"].replace(".", "").replace(",", "."))
         
     if "inversor":
-        if "1000w" in nome and "24v" in nome and "110v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 1000W 24v 110V"})
+        if "1000w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 1000W 24V SENOIDAL PURA"})
             return
-        elif "3500w" in nome and "12v" in nome and "220v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3500W 12v 220W"})
+        elif "3500w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3500W 12V SENOIDAL PURA"})
             return
-        elif "3500w" in nome and "12v" in nome and "110v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3500W 12v 110W"})
+        elif "4000w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 4000W 24V SENOIDAL PURA"})
             return
-        elif "4000w" in nome and "24v" in nome and "110v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 4000W 24v 110W"})
-            return
-        elif "4000w" in nome and "24v" in nome and "220v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 4000W 24v 220W"})
-            return
-        elif "3000w" in nome and "12v" in nome and "220v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3000W 12v 220W"})
-            return
-        elif "3000w" in nome and "12v" in nome and "110v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3000W 12v 110W"})
-            return
-        elif "3000w" in nome and "24v" in nome and "110v" in nome:
-            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3500W 24v 110W"})
+        elif "3000w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
+            items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "INVERSOR 3000W 12V SENOIDAL PURA"})
             return
     
     items.append({"Vendedor": item["Vendedor"], "Produto": nome,"Marca": item["Marca"],"Frete Grátis": item["Frete Grátis"], "Qtde": item["Qtde"], "Preço Unitário": price, "Total": total, "Produto2": "OUTROS"})

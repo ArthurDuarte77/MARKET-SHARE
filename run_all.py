@@ -23,7 +23,6 @@ if os.path.exists("resultado_final.xlsx"):
     os.remove("resultado_final.xlsx")
     
 def juntar_planilhas():
-    # Lista de arquivos a serem juntados
     arquivos = [
         "modelos_jfa.xlsx",
         "modelos_stetson.xlsx",
@@ -34,12 +33,11 @@ def juntar_planilhas():
         "modelos_volt.xlsx",
         "modelos_tataliken.xlsx",
         "modelos_knup.xlsx",
+        "modelos_amfer.xlsx",
     ]
     
-    # Data de hoje
     data_hoje = datetime.now().strftime('%Y-%m-%d')
     
-    # Inicializar dataframe vazio
     df_juntado = pd.DataFrame()
     
     # Juntar planilhas
@@ -57,10 +55,10 @@ def chamar_script(dia_inicial, dia_final, cookie):
     dia_inicial = datetime.strptime(dia_inicial, '%Y-%m-%d')
     dia_final = datetime.strptime(dia_final, '%Y-%m-%d')
 
-    total_days = (dia_final - dia_inicial).days + 1 #include the final day
+    total_days = (dia_final - dia_inicial).days + 1
     current_date = dia_inicial
 
-    for _ in tqdm(range(total_days), desc="Processing dates:", unit="day"): #tqdm added here
+    for _ in tqdm(range(total_days), desc="Processing dates:", unit="day"):
         formatted_date = current_date.strftime('%Y-%m-%d')
         comando = [
             'python',
@@ -72,6 +70,38 @@ def chamar_script(dia_inicial, dia_final, cookie):
         subprocess.run(comando)
         current_date += timedelta(days=1)
     messagebox.showinfo("Conclusão", "Todos os scripts foram executados com sucesso!")
+
+
+# import threading
+
+# def chamar_script(dia_inicial, dia_final, cookie):
+#     janela.destroy()
+#     dia_inicial = datetime.strptime(dia_inicial, '%Y-%m-%d')
+#     dia_final = datetime.strptime(dia_final, '%Y-%m-%d')
+
+#     total_days = (dia_final - dia_inicial).days + 1
+#     current_date = dia_inicial
+#     threads = []
+
+#     for _ in tqdm(range(total_days), desc="Processing dates:", unit="day"):
+#         formatted_date = current_date.strftime('%Y-%m-%d')
+#         comando = [
+#             'python',
+#             "main.py",
+#             '--dia_inicial', formatted_date,
+#             '--dia_final', formatted_date,
+#             '--cookie', cookie
+#         ]
+#         thread = threading.Thread(target=subprocess.run, args=(comando,))
+#         threads.append(thread)
+#         thread.start()
+#         current_date += timedelta(days=1)
+
+#     for thread in threads:
+#         thread.join()
+
+#     messagebox.showinfo("Conclusão", "Todos os scripts foram executados com sucesso!")
+
 
 
 

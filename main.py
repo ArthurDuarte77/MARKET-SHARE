@@ -17,6 +17,7 @@ def juntar_planilhas(data_hoje):
         "modelos_volt.xlsx",
         "modelos_tataliken.xlsx",
         "modelos_knup.xlsx",
+        "modelos_amfer.xlsx",
     ]
     
     if os.path.exists("resultado_final.xlsx"):
@@ -44,13 +45,14 @@ def chamar_script(dia_inicial, dia_final, cookie):
         "produtos.xlsx",
         "modelos_tataliken.xlsx",
         "modelos_knup.xlsx",
+        "modelos_amfer.xlsx",
     ]
     
     for arquivo in arquivos:
         if os.path.exists(arquivo):
             os.remove(arquivo)
     
-    scripts = ['amfer.py', 'hayonik.py', 'jfa-ia.py', 'knup.py', 'stetson.py', 'taramps.py', 'tataliken.py', 'volt.py', 'usina.py']
+    scripts = ['jfa-ia.py'] #['amfer.py', 'hayonik.py', 'jfa-ia.py', 'knup.py', 'stetson.py', 'taramps.py', 'volt.py', 'usina.py']
     
     for script in scripts:
         comando = [
