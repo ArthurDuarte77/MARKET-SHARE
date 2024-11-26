@@ -96,6 +96,11 @@ for index, row in df.iterrows():  # Iterate through rows with index
             df.loc[index, 'Produto2'] = 'INVERSOR 3000W 24V SENOIDAL PURA'
         else:
             df.loc[index, 'Produto2'] = 'INVERSOR 3000W 12V SENOIDAL PURA'
+    elif "INVERSOR OFF-GRID SENOIDAL PURA JFA 3000W" in produto:
+        if "24v" in nome:
+            df.loc[index, 'Produto2'] = 'INVERSOR 3000W 24V SENOIDAL PURA'
+        else:
+            df.loc[index, 'Produto2'] = 'INVERSOR 3000W 12V SENOIDAL PURA'
     elif "INVERSOR OFF GRID SENOIDAL PURA JFA 1500W" in produto:
         if "24v" in nome:
             df.loc[index, 'Produto2'] = 'INVERSOR 1500W 24V SENOIDAL PURA'

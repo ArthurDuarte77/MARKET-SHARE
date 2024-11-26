@@ -56,19 +56,19 @@ def chamar_script(dia_inicial, dia_final, cookie, escolha):
     print(escolha)
     if "JFA" in escolha:
         scripts.append("jfa-ia.py")
-    elif "Usina" in escolha:
+    if "Usina" in escolha:
         scripts.append("usina.py")
-    elif "Taramps" in escolha:
+    if "Taramps" in escolha:
         scripts.append("taramps.py")
-    elif "Amfer" in escolha:
+    if "Amfer" in escolha:
         scripts.append("amfer.py")
-    elif "Hayonik" in escolha:
+    if "Hayonik" in escolha:
         scripts.append("hayonik.py")
-    elif "Knup" in escolha:
+    if "Knup" in escolha:
         scripts.append("knup.py")
-    elif "Stetson" in escolha:
+    if "Stetson" in escolha:
         scripts.append("stetson.py")
-    elif "Volt" in escolha:
+    if "Volt" in escolha:
         scripts.append("volt.py")
         
     #['amfer.py', 'hayonik.py', 'jfa-ia.py', 'knup.py', 'stetson.py', 'taramps.py', 'volt.py', 'usina.py']
