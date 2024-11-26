@@ -69,52 +69,47 @@ for i in urls:
     all_dados = pd.concat([all_dados, novos_dados])
     
 all_dados = all_dados[["Vendedor", "Produto", "Marca", "Frete Grátis", "Qtde", "Preço Unitário", "Total", "Produto2"]]
-all_dados.to_excel("modelos_jfa.xlsx", index=False)
 
+all_dados.to_excel("modelos_jfa.xlsx", index=False)
 
 
 df = pd.read_excel("modelos_jfa.xlsx")
 
+
 for index, row in df.iterrows():  # Iterate through rows with index
     nome = row["Produto"].strip().lower()
+    produto = row["Produto2"].strip()
 
-    if "inversor" in nome:
-        if "1000w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 1000W 24V SENOIDAL PURA'  
-        elif "1000w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 1000W 12V SENOIDAL PURA'
-        elif "1500w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 1500W 24V SENOIDAL PURA'  
-        elif "1500w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 1500W 12V SENOIDAL PURA'
-        elif "2000w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
+
+    if "INVERSOR OFF GRID SENOIDAL PURA JFA 2000W" in produto:
+        if "24v" in nome:
             df.loc[index, 'Produto2'] = 'INVERSOR 2000W 24V SENOIDAL PURA'
-            continue
-        elif "2000w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
+        else:
             df.loc[index, 'Produto2'] = 'INVERSOR 2000W 12V SENOIDAL PURA'
-            continue
-        elif "3500w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 3500W 12V SENOIDAL PURA'
-            continue
-        elif "3500w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 3500W 24V SENOIDAL PURA'
-            continue
-        elif "4000w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 4000W 24V SENOIDAL PURA'
-            continue
-        elif "4000w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 4000W 12V SENOIDAL PURA'
-            continue
-        elif "3000w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 3000W 12V SENOIDAL PURA'
-            continue
-        elif "3000w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
+    elif "INVERSOR  OFF GRID SENOIDAL PURA JFA 1000W" in produto:
+        if "24v" in nome:
+            df.loc[index, 'Produto2'] = 'INVERSOR 1000W 24V SENOIDAL PURA'
+        else:
+            df.loc[index, 'Produto2'] = 'INVERSOR 1000W 12V SENOIDAL PURA'
+    elif "INVERSOR OFF GRID SENOIDAL PURA JFA 3000W" in produto:
+        if "24v" in nome:
             df.loc[index, 'Produto2'] = 'INVERSOR 3000W 24V SENOIDAL PURA'
-            continue
-        elif "6000w" in nome and "12v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 6000W 12V SENOIDAL PURA'
-            continue
-        elif "6000w" in nome and "24v" in nome and ("senoidal" in nome or 'pura' in nome or 'onda sen' in nome):
-            df.loc[index, 'Produto2'] = 'INVERSOR 6000W 24V SENOIDAL PURA'
-            continue
+        else:
+            df.loc[index, 'Produto2'] = 'INVERSOR 3000W 12V SENOIDAL PURA'
+    elif "INVERSOR OFF GRID SENOIDAL PURA JFA 1500W" in produto:
+        if "24v" in nome:
+            df.loc[index, 'Produto2'] = 'INVERSOR 1500W 24V SENOIDAL PURA'
+        else:
+            df.loc[index, 'Produto2'] = 'INVERSOR 1500W 12V SENOIDAL PURA'
+    elif "INVERSOR OFF GRID SENOIDAL PURA JFA 4000W" in produto:
+        if "24v" in nome:
+            df.loc[index, 'Produto2'] = 'INVERSOR 4000W 24V SENOIDAL PURA'
+        else:
+            df.loc[index, 'Produto2'] = 'INVERSOR 4000W 12V SENOIDAL PURA'
+    elif "INVERSOR OFF GRID SENOIDAL PURA JFA 5000W" in produto:
+        if "24v" in nome:
+            df.loc[index, 'Produto2'] = 'INVERSOR 5000W 24V SENOIDAL PURA'
+        else:
+            df.loc[index, 'Produto2'] = 'INVERSOR 5000W 12V SENOIDAL PURA'
 
+df.to_excel("modelos_jfa.xlsx", index=False)

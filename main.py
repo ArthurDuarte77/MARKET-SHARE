@@ -1,3 +1,4 @@
+import json
 import argparse
 import subprocess
 import pandas as pd
@@ -33,7 +34,7 @@ def juntar_planilhas(data_hoje):
     
     df_juntado.to_excel('resultado_final.xlsx', index=False)
 
-def chamar_script(dia_inicial, dia_final, cookie):
+def chamar_script(dia_inicial, dia_final, cookie, escolha):
     arquivos = [
         "modelos_jfa.xlsx",
         "modelos_stetson.xlsx",
@@ -51,8 +52,26 @@ def chamar_script(dia_inicial, dia_final, cookie):
     for arquivo in arquivos:
         if os.path.exists(arquivo):
             os.remove(arquivo)
-    
-    scripts = ['jfa-ia.py'] #['amfer.py', 'hayonik.py', 'jfa-ia.py', 'knup.py', 'stetson.py', 'taramps.py', 'volt.py', 'usina.py']
+    scripts = []
+    print(escolha)
+    if "JFA" in escolha:
+        scripts.append("jfa-ia.py")
+    elif "Usina" in escolha:
+        scripts.append("usina.py")
+    elif "Taramps" in escolha:
+        scripts.append("taramps.py")
+    elif "Amfer" in escolha:
+        scripts.append("amfer.py")
+    elif "Hayonik" in escolha:
+        scripts.append("hayonik.py")
+    elif "Knup" in escolha:
+        scripts.append("knup.py")
+    elif "Stetson" in escolha:
+        scripts.append("stetson.py")
+    elif "Volt" in escolha:
+        scripts.append("volt.py")
+        
+    #['amfer.py', 'hayonik.py', 'jfa-ia.py', 'knup.py', 'stetson.py', 'taramps.py', 'volt.py', 'usina.py']
     
     for script in scripts:
         comando = [
@@ -76,10 +95,12 @@ def main():
     parser.add_argument('--dia_inicial', type=str, required=True, help='Data inicial no formato YYYY-MM-DD')
     parser.add_argument('--dia_final', type=str, required=True, help='Data final no formato YYYY-MM-DD')
     parser.add_argument('--cookie', type=str, required=True, help='Cookie')
+    parser.add_argument('--escolha', required=True, help='Escolha')
 
     args = parser.parse_args()
+    escolha_list = json.loads(args.escolha)
 
-    chamar_script(args.dia_inicial, args.dia_final, args.cookie)
+    chamar_script(args.dia_inicial, args.dia_final, args.cookie, escolha_list)
 
 if __name__ == "__main__":
     main()
