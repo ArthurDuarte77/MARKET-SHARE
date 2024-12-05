@@ -35,6 +35,7 @@ def juntar_planilhas():
         "modelos_tataliken.xlsx",
         "modelos_knup.xlsx",
         "modelos_amfer.xlsx",
+        "modelos_ajk.xlsx",
     ]
     
     data_hoje = datetime.now().strftime('%Y-%m-%d')
@@ -188,6 +189,7 @@ var_hayonik = tk.BooleanVar()
 var_knup = tk.BooleanVar()
 var_stetson = tk.BooleanVar()
 var_volt = tk.BooleanVar()
+var_ajk = tk.BooleanVar()
 
 # Criação dos checkboxes
 check_jfa = tk.Checkbutton(janela, text="JFA", variable=var_jfa)
@@ -198,6 +200,7 @@ check_hayonik = tk.Checkbutton(janela, text="Hayonik", variable=var_hayonik)
 check_knup = tk.Checkbutton(janela, text="Epever", variable=var_knup)
 check_stetson = tk.Checkbutton(janela, text="Stetson", variable=var_stetson)
 check_volt = tk.Checkbutton(janela, text="Volt", variable=var_volt)
+check_ajk = tk.Checkbutton(janela, text="AJK", variable=var_ajk)
 
 # Posicionamento dos checkboxes
 check_jfa.grid(column=0, row=4, padx=5, pady=5, sticky="w")
@@ -208,6 +211,7 @@ check_hayonik.grid(column=0, row=8, padx=5, pady=5, sticky="w")
 check_knup.grid(column=0, row=9, padx=5, pady=5, sticky="w")
 check_stetson.grid(column=0, row=10, padx=5, pady=5, sticky="w")
 check_volt.grid(column=0, row=11, padx=5, pady=5, sticky="w")
+check_ajk.grid(column=0, row=11, padx=5, pady=5, sticky="w")
 
 # Botão para executar o script
 ttk.Button(janela, text='Executar', command=lambda: chamar_script(

@@ -70,6 +70,8 @@ def chamar_script(dia_inicial, dia_final, cookie, escolha):
         scripts.append("stetson.py")
     if "Volt" in escolha:
         scripts.append("volt.py")
+    if "AJK" in escolha:
+        scripts.append("ajk.py")
         
     #['amfer.py', 'hayonik.py', 'jfa-ia.py', 'knup.py', 'stetson.py', 'taramps.py', 'volt.py', 'usina.py']
     

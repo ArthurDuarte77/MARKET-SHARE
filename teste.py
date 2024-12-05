@@ -1,39 +1,26 @@
-import tkinter as tk
-from tkinter import messagebox
+from PIL import Image
 
-def show_selected():
-    selected = []
-    if var_jfa.get():
-        selected.append("JFA")
-    if var_usina.get():
-        selected.append("Usina")
-    if var_taramps.get():
-        selected.append("Taramps")
-    if selected:
-       print(selected)
+def calcular_porcentagem_preto(caminho_imagem):
+    # Abre a imagem e converte para escala de cinza
+    imagem = Image.open(caminho_imagem).convert('L')
+    
+    # Converte a imagem em uma lista de pixels
+    pixels = list(imagem.getdata())
+    total_pixels = len(pixels)
 
-# Criação da janela principal
-root = tk.Tk()
-root.title("Seleção de Modelos")
+    # Define um limite para considerar um pixel como preto
+    # 0 é preto absoluto, aumentando o limite se considerar tons próximos ao preto
+    limiar_preto = 10
 
-# Variáveis para armazenar os estados dos checkbuttons
-var_jfa = tk.BooleanVar()
-var_usina = tk.BooleanVar()
-var_taramps = tk.BooleanVar()
+    # Conta quantos pixels são pretos (ou próximos do preto)
+    pixels_pretos = sum(1 for pixel in pixels if pixel <= limiar_preto)
 
-# Criando os checkbuttons
-check_jfa = tk.Checkbutton(root, text="JFA", variable=var_jfa)
-check_usina = tk.Checkbutton(root, text="Usina", variable=var_usina)
-check_taramps = tk.Checkbutton(root, text="Taramps", variable=var_taramps)
+    # Calcula a porcentagem de pixels pretos
+    porcentagem_preto = (pixels_pretos / total_pixels) * 100
 
-# Botão para confirmar a seleção
-btn_confirm = tk.Button(root, text="Confirmar", command=show_selected)
+    return porcentagem_preto
 
-# Posicionando os elementos na janela
-check_jfa.pack(anchor="w")
-check_usina.pack(anchor="w")
-check_taramps.pack(anchor="w")
-btn_confirm.pack(pady=10)
-
-# Inicia o loop principal da aplicação
-root.mainloop()
+# Exemplo de uso
+caminho_imagem = "branco.jpg"
+porcentagem = calcular_porcentagem_preto(caminho_imagem)
+print(f"A imagem contém {porcentagem:.2f}% de pixels pretos.")

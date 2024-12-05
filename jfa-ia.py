@@ -43,10 +43,18 @@ for i in urls:
     if response.status_code == 200:  
         with open("produtos.xlsx", 'wb') as file:
             file.write(response.content)
+    else:
+        print("error requisição")
 
     time.sleep(5)
-
     novos_dados = pd.read_excel("produtos.xlsx", engine='openpyxl')
+    if novos_dados.empty:
+        print("DataFrame is empty. Skipping prediction.")
+        continue
+    if novos_dados['Produto'].empty:
+        print("Product column is empty. Skipping prediction.")
+        continue
+    
     novos_dados['Preço Unitário'] = novos_dados['Preço Unitário'].str.replace('.', '', regex=False).str.replace(',', '.', regex=False).astype(float)
     # Carregar o pipeline treinado
     pipeline_carregado = joblib.load('modelo_treinado.pkl')
@@ -80,7 +88,8 @@ for index, row in df.iterrows():  # Iterate through rows with index
     nome = row["Produto"].strip().lower()
     produto = row["Produto2"].strip()
 
-
+    if "black" in nome:
+        pass
     if "INVERSOR OFF GRID SENOIDAL PURA JFA 2000W" in produto:
         if "24v" in nome:
             df.loc[index, 'Produto2'] = 'INVERSOR 2000W 24V SENOIDAL PURA'
